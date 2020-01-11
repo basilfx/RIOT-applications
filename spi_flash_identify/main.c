@@ -7,6 +7,7 @@
 #include "periph/spi.h"
 
 #define SPI_BUS     SPI_DEV(0)
+#define SPI_EN_PIN  GPIO_PIN(PF, 3)
 #define SPI_CS_PIN  GPIO_PIN(PB, 11)
 
 int main(void)
@@ -16,9 +17,11 @@ int main(void)
     puts("Initialize GPIO.");
 
     gpio_init(SPI_CS_PIN, GPIO_OUT);
+    gpio_init(SPI_EN_PIN, GPIO_OUT);
 
     puts("Initialize SPI.");
 
+    gpio_set(SPI_EN_PIN);
     spi_init(SPI_BUS);
 
     puts("Sending JEDEC READ ID command.");
